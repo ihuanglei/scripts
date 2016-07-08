@@ -5,7 +5,6 @@ import sys
 import datetime
 
 from docx import Document
-from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 from mysql import mysql_select, mysql_init
 
@@ -23,7 +22,7 @@ def doit():
   user = 'root'
   password = 'renrenbx'
   database = 'renrenbx'
-
+  
   mysql_init(mysql_host = host, mysql_database = database, mysql_user = user, mysql_password = password)  
   
   tables = {}
@@ -33,13 +32,22 @@ def doit():
         
   for column in table_colume(database):
     tables[column['TABLE_NAME']]['columns'] += [column]  
-      
+    
   document = Document()
   document.add_heading(database, 0)
   
+  i = 0
+  max = len(tables)
+  
   for key in sorted(tables.keys()):
+    
+    i = i + 1
+    value = int(round((i * 1.0) / max * 100))
+    
+    sys.stdout.write(' [' + '#' * i + '] %s%%' % value + '\r')
+    sys.stdout.flush()
+    
     document.add_heading(key, 1)
-
     table_engine = tables[key]['info']['ENGINE']
     paragraph = document.add_paragraph()
     paragraph.add_run(table_engine).bold = True
@@ -60,6 +68,7 @@ def doit():
       row_cell[3].text = column['COLUMN_COMMENT'] if column['COLUMN_COMMENT'] else '-'
   
     document.save('%s-%s.docx' % (database,datetime.datetime.now().strftime("%Y%m%d%H")))
-  
+    
+    
 if __name__ == '__main__':
   doit()
