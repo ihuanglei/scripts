@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys
 import functools
-
 import smtplib
 
 def send(smtp_server, username, password, sender, receiver, msg):

@@ -6,7 +6,7 @@ import datetime
 
 from docx import Document
 
-from hl_mysql import mysql_select, mysql_init
+from hl_mysql import mysql_init, mysql_select
 
 @mysql_select('SELECT TABLE_NAME, ENGINE, TABLE_COLLATION, TABLE_COMMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA=%s ORDER BY TABLE_NAME')
 def table_schema(schema):
