@@ -7,7 +7,7 @@ from email.header import Header
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
   
-@email('smtp.ym.163.com', 'data@renrenbx.com', 'yunying', 'data@renrenbx.com', 'leihuang@renrenbx.com')
+@email('smtp.ym.163.com', 'test@test.com', 'test', 'test@test.com', 'test@test.com')
 def test_email(content):
   msg = MIMEText(content, 'plain', 'utf-8')
   msg['From'] = Header(u'来自测试的我', 'utf-8')
@@ -15,7 +15,7 @@ def test_email(content):
   msg['Subject'] = Header(u'自动测试', 'utf-8').encode()
   return msg
 
-@email('smtp.ym.163.com', 'data@renrenbx.com', 'yunying', 'data@renrenbx.com', 'leihuang@renrenbx.com')  
+@email('smtp.ym.163.com', 'data@test.com', 'test', 'data@test.com', 'test@test.com')  
 def test_attachment(content, file):
   msg = MIMEMultipart('alternative')
   msg['Subject'] = Header(u'附件测试', 'utf-8').encode()
